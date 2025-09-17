@@ -18,8 +18,9 @@ class BitcoinExchange
         ~BitcoinExchange();
         BitcoinExchange(const BitcoinExchange& copy);
         BitcoinExchange& operator=(const BitcoinExchange& in);
-        void readDb();
-        void parsePush(std::string data);
+        
+        void readDataCsv();
+
         void readParse(char *argv);
         bool checkDate(std::string date);
         float checkValue(std::string value);

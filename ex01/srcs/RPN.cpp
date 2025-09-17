@@ -1,17 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   RPN.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: schahid <schahid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/13 09:17:05 by schahid           #+#    #+#             */
-/*   Updated: 2023/05/13 16:46:23 by schahid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../includes/RPN.hpp"
 
-#include "RPN.hpp"
-
+/* ************************************************************************** */
 RPN::RPN(){}
 
 RPN::~RPN(){}
@@ -27,6 +16,7 @@ RPN& RPN::operator=(const RPN& in)
     return (*this);
 }
 
+/* ************************************************************************** */
 int RPN::isOperand(char c)
 {
     if (c >= '0' && c <= '9')
@@ -34,6 +24,7 @@ int RPN::isOperand(char c)
     return (-1);
 }
 
+/* ************************************************************************** */
 int RPN::isOperator(char c)
 {
     if (c == '+' || c == '-' || c == '/' || c == '*')
@@ -41,6 +32,7 @@ int RPN::isOperator(char c)
     return (-1); 
 }
 
+/* ************************************************************************** */
 int RPN::calcOperation(int a, int b, char op)
 {
     if (op == '+')
@@ -60,11 +52,13 @@ int RPN::calcOperation(int a, int b, char op)
         return (b*a);
 }
 
+/* ************************************************************************** */
 int RPN::getStackTop()
 {
     return (this->stack.top());
 }
 
+/* ************************************************************************** */
 void RPN::argvTostring(char **argv)
 {
     std::stringstream ss;
@@ -85,6 +79,7 @@ void RPN::argvTostring(char **argv)
     expEval(expression);
 }
 
+/* ************************************************************************** */
 void RPN::expEval(std::string exp)
 {
     size_t i = 0;
@@ -127,5 +122,3 @@ void RPN::expEval(std::string exp)
     }
     std::cout << getStackTop() << std::endl;
 }
-
-

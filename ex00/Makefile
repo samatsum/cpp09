@@ -11,7 +11,7 @@ SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS_FILES:.cpp=.o))
 
-NAME =   Mutated_abomination
+NAME =  btc
 
 all: $(NAME)
 

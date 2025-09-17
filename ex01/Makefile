@@ -1,36 +1,41 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: schahid <schahid@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/13 09:17:14 by schahid           #+#    #+#              #
-#    Updated: 2023/05/14 09:58:56 by schahid          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
 
-NAME= RPN
-SRC= RPN.cpp main.cpp
-OBJ= $(SRC:.cpp=.o)
-CPP= c++
-CPPFLAGS= -Wall -Wextra -Werror -std=c++98
+SRCS_DIR = srcs
+OBJS_DIR = objects
 
-$(NAME): $(OBJ)
-		@$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME) 
-		@echo "RPN compiled successfully ✅"
-		
-%.o: %.cpp
-		@$(CPP) $(CPPFLAGS) -c $<
+SRCS_FILES =	main.cpp \
+				RPN.cpp\
+
+SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
+
+OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS_FILES:.cpp=.o))
+
+NAME =   RPN
 
 all: $(NAME)
 
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(NAME): $(OBJS_DIR) $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 clean:
-		@rm -rf $(OBJ)
-		@echo "RPN object files cleaned successfully 🗑"
-fclean:
-		@rm -rf $(OBJ)
-		@rm -rf $(NAME)
-		@echo "RPN object files and RPN cleaned successfully 🗑"
+	rm -rf $(OBJS_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+#	rm -f *_shrubbery
 
 re: fclean all
+
+.PHONY: all clean fclean re
+
+# static_cast: コンパイル時に型変換可能かチェックするぞ。実行時に型変換するぞ。
+# dynamic_cast: 実行時に型変換可能かチェックするぞ。実行時に型変換するぞ。
+# const_cast: 実行時const修飾子の変更（型変換チェックなんてしない）
+# reinterpret_cast: 実行時バイナリレベルでの再解釈（型変換チェックなんてしない）
